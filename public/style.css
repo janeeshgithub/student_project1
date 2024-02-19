@@ -105,3 +105,33 @@ span{
 #icon{
 width: 100px;
 }
+
+@media only screen and (max-width: 767px) {
+  .container {
+    background-size: contain;
+  }
+  
+  .form-box {
+    width: 80%;
+    max-width: 350px;
+    padding: 30px 40px 50px;
+    border-radius: 10px;
+  }
+  
+  .form-box h1 {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .form-group {
+    max-height: 55px;
+  }
+  
+  input {
+    padding: 12px;
+  }
+  
+  #icon {
+    width: 60px;
+  }
+}

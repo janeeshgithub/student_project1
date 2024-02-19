@@ -208,3 +208,66 @@ header{
     max-width: 30%;
 }
 
+@media only screen and (max-width: 767px) {
+    .container.main-nav .flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container.main-nav .flex .logo {
+        width: 0px;
+        margin-right: 10px;
+    }
+
+    .container.main-nav .flex h1 {
+        font-size: 1rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    .container.main-nav .nav-links {
+        margin-top: 5px;
+        padding-left: 200px;
+    }
+
+    .container.header-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container.header-section .header-left {
+        width: 100%;
+        text-align: center;
+    }
+
+    .container.header-section .header-left h1 {
+        font-size: 1.5rem;
+    }
+
+    .container.header-section .header-left p {
+        font-size: 0.8rem;
+    }
+
+    .container.header-section .header-right {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    .container.header-section .header-right img {
+        width: 80%;
+        height: auto;
+    }
+    
+    .feature-cards img {
+        width: 50%;
+        }
+        .feature-cards h3 {
+            font-size: 1rem;
+        }
+        
+        .feature-cards p {
+            font-size: 0.8rem;
+        }
+    
+}

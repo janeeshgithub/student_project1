@@ -162,3 +162,51 @@ video{
     margin-bottom: 132px;
     display: none;
 }
+@media only screen and (max-width: 767px) {
+    .logo img {
+    height: 30px;
+    }
+    .logo a {
+    font-size: 20px;
+    }
+    .icons {
+    font-size: 2rem;
+    }
+    .jumbotron {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    .jumbotron .container {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    }
+    .jumbotron h1 {
+    font-size: 2rem;
+    }
+    .jumbotron p {
+    font-size: 1rem;
+    }
+    .jumbotron ul {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    }
+    .jumbotron li {
+    margin-top: 1rem;
+    }
+    .jumbotron .new-meeting {
+    width: 100%;
+    }
+    .jumbotron .enter-code {
+    width: 100%;
+    }
+    .signin-image {
+    height: 250px;
+    border: 10px solid white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px grey;
+    }
+    
+    }
