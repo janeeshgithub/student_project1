@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Profile</title>
+
+   <!-- Font Awesome CDN link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!-- Custom CSS file link -->
+   <link rel="stylesheet" href="style3.css">
+
+</head>
+<body>
+
+<section class="user-profile">
+
+   <h1 class="heading">Your Profile</h1>
+
+   <div class="info">
+
+      <div class="user">
+         <img src="/uploads/<%= user.image %>" alt="<%= user.name %>">
+         <h3><%= user.name %></h3>
+         <p><%= user.email %></p>
+         <p>ID: <%= user._id %></p>
+         <a href="update.html" class="inline-btn">Update Profile</a>
+      </div>
+   
+      
+   </div>
+
+</section>
+
+</body>
+<%- include("partials/footer.ejs") %>
+</html>

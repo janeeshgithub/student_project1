@@ -1,17 +1,24 @@
 const mongoose = require("mongoose");
-const connect=mongoose.connect("mongodb://localhost:27017/Login");
+require('dotenv').config();
+const connect = mongoose.connect(process.env.MONGO_URL);
 
 connect.then(() => {
     console.log("Database Connected Successfully");
-})
-.catch(() => {
+}).catch(() => {
     console.log("Database cannot be Connected");
-})
+});
 
-const Loginschema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
+        type: String,
+        required: true
+    },
+    email: {
         type:String,
         required: true
+    },
+    image: { 
+        type: String
     },
     password: {
         type: String,
@@ -19,6 +26,23 @@ const Loginschema = new mongoose.Schema({
     }
 });
 
-const collection = new mongoose.model("users", Loginschema);
+// pdf schema
+const pdfSchema = new mongoose.Schema({
+    originalname: {
+        type: String,
+        required: true
+    },
+    path: {
+        type: String,
+        required: true
+    },
+    uploaderName: {
+        type: String,
+        required: true
+    }
+});
 
-module.exports = collection;
+const User = new mongoose.model("users", userSchema);
+const Pdf = new mongoose.model("pdfs", pdfSchema);
+
+module.exports = { User, Pdf };

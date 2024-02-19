@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs") %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Playlist</title>
+
+    <!-- Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <!-- Custom CSS file link -->
+    <link rel="stylesheet" href="/style3.css">
+</head>
+
+<body>
+    <section class="playlist-videos">
+        <h1 class="heading">PDF Playlist</h1>
+        <div class="box-container">
+            <% for(let i = start; i <= end && i < pdfs.length; i++) { %>
+                <div class="box">
+                    <a href="/material/<%= pdfs[i]._id %>" target="_self">
+                        <img src="images/pdf.jpg" class="image" alt="">
+                        <h3><%= pdfs[i].originalname %></h3>
+                        <i class="fas fa-file-pdf"></i>
+                        <p>Uploader: <%= pdfs[i].uploaderName %></p>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </section>
+    
+    <%- include("partials/footer.ejs") %>
+</body>
+
+</html>
+
