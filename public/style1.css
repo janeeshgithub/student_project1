@@ -144,7 +144,8 @@ span{
 
 .nav-links{
     flex-basis: 730px;
-    padding-left: 500px;
+    padding-left: 10px;
+    margin-left: 80px;
 }
 
 .nav-links ul{
@@ -233,7 +234,7 @@ header{
     }
     
     .container.main-nav .nav-links a {
-        margin: 0 20px;
+        
         
     }
 
