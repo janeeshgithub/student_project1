@@ -144,6 +144,7 @@ span{
 
 .nav-links{
     flex-basis: 730px;
+    padding-left: 500px;
 }
 
 .nav-links ul{
@@ -225,9 +226,15 @@ header{
         text-align: center;
     }
 
-    .container.main-nav .nav-links {
-        margin-top: 5px;
-        padding-left: 200px;
+    .container.main-nav .flex .nav-links {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 20px;
+    }
+    
+    .container.main-nav .nav-links a {
+        margin: 0 20px;
+        
     }
 
     .container.header-section {

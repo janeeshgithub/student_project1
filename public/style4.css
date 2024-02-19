@@ -206,7 +206,49 @@ video{
     height: 250px;
     border: 10px solid white;
     border-radius: 5px;
-    box-shadow: 1px 1px 5px grey;
+    box-shadow: 1px 1px 15px grey;
+    padding-right: 5px;
+    }
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .container:nth-child(1) {
+        margin-bottom: 10px;
+    }
+
+    .container:nth-child(2) {
+        margin-top: 10px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .container:nth-child(1) {
+        padding-bottom: 20px;
+    }
+
+    h1,
+    p {
+        font-size: 1.5rem;
+    }
+
+    ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    ul li {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    input,
+    button {
+        width: 100%;
     }
     
     }
