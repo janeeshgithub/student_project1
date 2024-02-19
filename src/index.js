@@ -3,7 +3,6 @@ const path = require("path");
 const http = require("http");
 const session = require("express-session");
 const { User, Pdf} = require("./config");  // Import both User and Pdf models
-const bcrypt = require("bcrypt");
 const multer = require("multer");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
