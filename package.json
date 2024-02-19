@@ -1,7 +1,7 @@
 {
 
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node src/index.js",
     "build": "npm install"
   },
 
