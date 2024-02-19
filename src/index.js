@@ -90,14 +90,13 @@ app.get("/pdfs", async (req, res) => {
 });    
 
 
-// Signup route
-app.post("/signup",upload.single("profileImage"), async (req, res) => {
+app.post("/signup", upload.single("profileImage"), async (req, res) => {
     const data = {
         name: req.body.username,
-        password: req.body.password,
+        password: req.body.password, // Store the password directly for testing
         email: req.body.email,
-        image:req.file.filename
-    }
+        image: req.file.filename,
+    };
 
     try {
         const existingUser = await User.findOne({ name: data.name });
@@ -105,11 +104,6 @@ app.post("/signup",upload.single("profileImage"), async (req, res) => {
         if (existingUser) {
             return res.send('User already exists. Please choose a different username.');
         }
-
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
-
-        data.password = hashedPassword;
 
         const userdata = await User.create(data);
         console.log(userdata);
@@ -130,8 +124,8 @@ app.post("/login", async (req, res) => {
             return res.send("User name cannot be found");
         }
 
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
-        if (!isPasswordMatch) {
+        // Compare passwords directly for testing
+        if (user.password !== password) {
             return res.send("Wrong Password");
         }
 
