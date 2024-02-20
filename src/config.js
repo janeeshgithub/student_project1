@@ -34,7 +34,6 @@ const pdfSchema = new mongoose.Schema({
     },
     path: {
         type: String,
-        required: true
     },
     uploaderName: {
         type: String,
