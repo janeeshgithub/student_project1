@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const http = require("http");
 const session = require("express-session");
-const { User, Pdf} = require("./config");  // Import both User and Pdf models
+const { User, Pdf} = require("./src/config");  // Import both User and Pdf models
 const multer = require("multer");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
@@ -45,7 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-app.set('views, "path.join("../views',"views");
+app.set('views, "path.join("./views',"views");
 //app.set('views, "path.join("c:\Users\chith\Videos\web development\student_project',"views");
 app.use(
     session({
