@@ -38,7 +38,6 @@
           <a href="/teachers"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
           <a href="/contact"><i class="fas fa-headset"></i><span>contact us</span></a>
           <a href="/upload"><i class="fa-solid fa-upload"></i><span>Upload</span></a>
-          <a href="/uploadDocument"><i class="fa-solid fa-upload"></i><span>Upload</span></a>
        </nav>
     
     </div>
@@ -123,13 +122,14 @@
 
 <body>
 
-    <h1 style="padding-left: 100px;">Upload PDF</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <h1 style="padding-left: 100px;">Upload CSE PDF</h1>
+    <form action="/uploadDocument" method="post" enctype="multipart/form-data">
         <label for="pdf">Choose a PDF file:</label>
-        <input type="file" name="pdf" accept=".pdf" required>
+        <input type="file" name="document" accept=".pdf" required>
 
         <button type="submit">Upload</button>
 
+        <!-- Add Heading and Paragraph -->
         <h2>Admin Users</h2>
         <p>Only admin users with names Dhanush, Janeesh, and Bharath are allowed to upload PDFs.</p>
     </form>

@@ -17,21 +17,22 @@
 </head>
 
 <body>
-    <section class="playlist-videos">
-        <h1 class="heading">PDF Playlist</h1>
-        <div class="box-container">
-            <% for(let i = start; i <= end && i < pdfs.length; i++) { %>
-                <div class="box">
-                    <a href="/material/<%= pdfs[i]._id %>" target="_self">
-                        <img src="images/pdf.jpg" class="image" alt="">
-                        <h3><%= pdfs[i].originalname %></h3>
-                        <i class="fas fa-file-pdf"></i>
-                        <p>Uploader: <%= pdfs[i].uploaderName %></p>
-                    </a>
-                </div>
-            <% } %>
-        </div>
-    </section>
+    section class="playlist-videos">
+    <h1 class="heading">PDF Playlist</h1>
+    <div class="box-container">
+        <% for(let i = 0; i < pdfs.length; i++) { %>
+            <div class="box">
+                <a href="/material/<%= pdfs[i]._id %>" target="_self">
+                    <img src="images/pdf.jpg" class="image" alt="">
+                    <h3><%= pdfs[i].originalname %></h3>
+                    <i class="fas fa-file-pdf"></i>
+                    <p>Uploader: <%= pdfs[i].uploaderName %></p>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</section>
+
     
     <%- include("partials/footer.ejs") %>
 </body>

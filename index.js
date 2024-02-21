@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const http = require("http");
 const session = require("express-session");
-const { User, Pdf} = require("./src/config");  // Import both User and Pdf models
+const { User, Pdf,Document} = require("./src/config");  // Import both User and Pdf models
 const multer = require("multer");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
@@ -49,23 +49,23 @@ app.set('views, "path.join("./views',"views");
 //app.set('views, "path.join("c:\Users\chith\Videos\web development\student_project',"views");
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,
-        resave: true,
-        saveUninitialized: true,
+      secret: process.env.SESSION_SECRET,
+      resave: true,
+      saveUninitialized: true,
     })
-);
-//284aab7361fc56082ab0eb22442b014f2b667daae5736e7f5512b81ba66e7926;
-app.use(async (req, res, next) => {
+  );
+  
+  app.use(async (req, res, next) => {
     if (req.session && req.session.userId) {
-        try {
-            const user = await User.findById(req.session.userId);
-            res.locals.user = user; // Make user data available in response locals
-        } catch (error) {
-            console.error(error);
-        }
+      try {
+        const user = await User.findById(req.session.userId);
+        res.locals.user = user;
+      } catch (error) {
+        console.error(error);
+      }
     }
     next();
-});
+  });
 
 app.get("/", (req, res) => res.render("frontpage"));
 app.get("/courses", (req, res) => res.render("courses"));
@@ -83,7 +83,7 @@ app.get("/signup", (req, res) => res.render("signup"));
 app.get("/upload", (req, res) => res.render("upload"));
 app.get("/home",(req,res)=>res.render("home"));
 app.get("/profile",(req,res)=>res.render("profile"));
-
+app.get("/semester",(req,res)=>res.render("semester"));
 
 
 app.get("/material", async (req, res) => {
@@ -153,33 +153,36 @@ app.post("/signup", upload.single("profileImage"), async (req, res) => {
 // Login route
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
-
+  
     try {
-        const user = await User.findOne({ name: username });
-        if (!user) {
-            return res.send("User name cannot be found");
-        }
-
-        // Temporarily comparing plain text passwords for testing (DO NOT USE IN PRODUCTION)
-        if (user.password !== password) {
-            return res.send("Wrong Password");
-        }
-
-        // Fetch the image name from MongoDB based on the user's name
-        const imageMetadata = await User.findOne({ name: username }, { image: 1 });
-        const imageName = imageMetadata ? imageMetadata.image : "default-image.jpg"; // Provide a default image name if not found
-
-        // Store user ID in the session
-        req.session.userId = user._id;
-
-        // Pass user data to home.ejs template, including image name, username, and email
-        res.render("home", { user: { ...user.toObject(), imageName } });
+      const user = await User.findOne({ name: username });
+      if (!user || user.password !== password) {
+        return res.send("Wrong Details");
+      }
+  
+      req.session.userId = user._id;
+  
+      const imageMetadata = await User.findOne({ name: username }, { image: 1 });
+      const imageName = imageMetadata ? imageMetadata.image : "default-image.jpg";
+  
+      res.render("home", { user: { ...user.toObject(), imageName } });
     } catch (error) {
-        console.error(error);
-        res.send("Wrong Details");
+      console.error(error);
+      res.send("Wrong Details");
     }
-});
+  });
 
+  app.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error logging out");
+      } else {
+        res.redirect("/");
+      }
+    });
+  });
+  
 
 
 
@@ -187,23 +190,55 @@ app.post("/login", async (req, res) => {
 app.get("/upload", (req, res) => res.render("upload"));
 app.post("/upload", upload.single("pdf"), async (req, res) => {
     try {
-        // Move the declaration of newPdf above this line
-        let newPdf;
+            let newPdf;
 
-        const pdfData = {
+            const pdfData = {
+                originalname: req.file.originalname,
+                uploaderName: res.locals.user ? res.locals.user.name : "Anonymous",
+            };
+            newPdf = await Pdf.create(pdfData);
+
+            newPdf.path = `gs://project-c5e5a.appspot.com/${newPdf._id.toString()}`;
+            await newPdf.save();
+
+            // Upload the PDF file to Firebase Storage
+            const fileUpload = bucket.file(newPdf._id.toString()); // Use the MongoDB _id as the filename
+            const blobStream = fileUpload.createWriteStream();
+
+            blobStream.on("error", (error) => {
+                console.error(error);
+                res.status(500).send("Error uploading file to Firebase Storage");
+            });
+
+            blobStream.on("finish", () => {
+                console.log("File uploaded successfully to Firebase Storage");
+                res.send("PDF uploaded successfully to Firebase Storage");
+            });
+
+            blobStream.end(req.file.buffer);
+    
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error handling file upload");
+    }
+});
+
+
+
+app.get("/uploadDocument", (req, res) => res.render("uploadDocument"));
+
+
+app.post("/uploadDocument", upload.single("document"), async (req, res) => {
+    try {
+        const documentData = {
             originalname: req.file.originalname,
             uploaderName: res.locals.user ? res.locals.user.name : "Anonymous",
         };
+        const newDocument = await Document.create(documentData);
+        newDocument.path = `gs://project-c5e5a.appspot.com/${newDocument._id.toString()}`;
+        await newDocument.save();
 
-        // Save the PDF data to the MongoDB collection (only metadata)
-        newPdf = await Pdf.create(pdfData);
-
-        // Update the path using the newly created _id
-        newPdf.path = `gs://project-c5e5a.appspot.com/${newPdf._id.toString()}`;
-        await newPdf.save();
-
-        // Upload the PDF file to Firebase Storage
-        const fileUpload = bucket.file(newPdf._id.toString()); // Use the MongoDB _id as the filename
+        const fileUpload = bucket.file(newDocument._id.toString());
         const blobStream = fileUpload.createWriteStream();
 
         blobStream.on("error", (error) => {
@@ -212,16 +247,37 @@ app.post("/upload", upload.single("pdf"), async (req, res) => {
         });
 
         blobStream.on("finish", () => {
-            console.log("File uploaded successfully to Firebase Storage");
-            res.send("PDF uploaded successfully to Firebase Storage");
+            console.log("Document uploaded successfully to Firebase Storage");
+            res.send("Document uploaded successfully to Firebase Storage");
         });
 
         blobStream.end(req.file.buffer);
     } catch (error) {
         console.error(error);
-        res.status(500).send("Error handling file upload");
+        res.status(500).send("Error handling document upload");
     }
 });
+
+
+app.get("/documents/:id", async (req, res) => {
+    try {
+        const documentId = req.params.id;
+        const document = await Document.findById(documentId);
+        if (!document) {
+            return res.status(404).send("Document not found");
+        }
+        const remoteFileStream = bucket.file(document._id.toString()).createReadStream();
+        res.type("application/pdf");
+        remoteFileStream.pipe(res);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
 
 app.get("/material/:id", async (req, res) => {
     try {
@@ -245,6 +301,7 @@ app.get("/material/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 
 

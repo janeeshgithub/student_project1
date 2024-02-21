@@ -41,7 +41,22 @@ const pdfSchema = new mongoose.Schema({
     }
 });
 
+const documentSchema = new mongoose.Schema({
+    originalname: {
+        type: String,
+        required: true
+    },
+    path: {
+        type: String,
+    },
+    uploaderName: {
+        type: String,
+        required: true
+    }
+});
+
 const User = new mongoose.model("users", userSchema);
 const Pdf = new mongoose.model("pdfs", pdfSchema);
+const Document = new mongoose.model("documents", documentSchema);
 
-module.exports = { User, Pdf };
+module.exports = { User, Pdf,Document};

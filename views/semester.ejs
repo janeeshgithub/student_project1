@@ -1,0 +1,57 @@
+<%- include("partials/header.ejs") %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Playlist</title>
+
+    <!-- Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <!-- Custom CSS file link -->
+    <link rel="stylesheet" href="/style3.css">
+    <style>
+              .box-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box {
+  width: 90%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  margin: 10px 0;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.box:hover {
+  background-color: #ddd;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="box-container" style="font-size: 2rem;">
+        <a href="/material" class="box">Semester 1</a>
+        <a href="/material" class="box">Semester 2</a>
+        <a href="/material" class="box">Semester 3</a>
+        <a href="/material" class="box">Semester 4</a>
+        <a href="/material" class="box">Semester 5</a>
+        <a href="/material" class="box">Semester 6</a>
+        <a href="material" class="box">Semester 7</a>
+        <a href="material" class="box">Semester 8</a>
+      </div>
+
+    
+    <%- include("partials/footer.ejs") %>
+</body>
+
+</html>

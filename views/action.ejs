@@ -96,9 +96,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function () {
-            $(document).on("click", ".join-meeting", function () {
-                $(".enter-code").focus();
-            });
             $(document).on("click", ".join-action", function(){
                 var join_value = $('.enter-code').val();
                 var meetingUrl = window.location.origin + "/index?meetingID=" + join_value;
